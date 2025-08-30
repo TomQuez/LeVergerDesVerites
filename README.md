@@ -1,69 +1,169 @@
-# React + TypeScript + Vite
+# Le Verger des Vérités — Website (front-end)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Official page for a non-profit that runs a **participatory, community orchard**, and advocates for **kitchen gardening**, **biodiversity**, and **organic** practices.
 
-Currently, two official plugins are available:
+- **Repository**: _to be created_
+- **Domain**: `levergerdesverites.fr` (custom domain via GitHub Pages)
+- **Audience**: general public, **mobile-first** (primarily viewed on smartphones)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Goals
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Introduce the association, its values, and activities.
+- Showcase the orchard (plots, species, seasons, community workdays).
+- Share updates & events (news, agenda), recruit volunteers/members, enable donations.
+- Keep it lightweight, fast, and **calm/zen**.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧰 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Vite.js** + **React** + **TypeScript**
+- **Material UI (MUI)** as the design system
+- Deployment through **GitHub Pages** (with a **custom domain**)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ✅ Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Node.js 20+** (LTS) and **npm 10+**
+- GitHub account and an empty repository (public or private)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🎨 Theme & Design System (MUI)
+
+**Mood**: calm, zen, serene.
+
+**Palette** :
+
+- **Papyrus/Beige** (background): `#FAF4E6` / `#FFF8E7`
+- **Oak brown** (accents): `#8B5E3C`
+- **Pastel/Light green** (primary): `#86C69C` or `#A8D5BA`
+- **Text**: `#3E372B` (primary), `#6B5E4A` (secondary)
+
+## 📱 Responsiveness & Performance (mobile-first)
+
+- **Mobile-first** layout (responsive MUI components: `Grid`, `Stack`, `Box`, `useMediaQuery`).
+- **Compressed images** + `loading="lazy"` on `<img/>`.
+- Avoid heavy carousels; prefer simple, well-spaced sections.
+- Measure LCP/CLS with Lighthouse.
+
+## 🔎 Basic SEO
+
+- Proper `title`, `meta name="description"`, OpenGraph/Twitter in `index.html`.
+- Clean URLs, sitemap (optional: `vite-plugin-sitemap`).
+- `lang="fr"` in `index.html` (the website is in French, even if this README is in English).
+
+---
+
+## 🧭 Navigation & Planned Pages
+
+- **Home**: hero, values, CTA “Join / Participate”
+- **About**: mission, bylaws, board, partners
+- **Orchard**: species, seasons, best practices, gallery
+- **Agenda**: workdays, workshops, events
+- **Join us**: membership, volunteering, donations
+- **Contact**: form (email), social links
+- **Legal notice** & **Privacy**
+
+---
+
+## 🚢 Deploying to GitHub Pages (with custom domain)
+
+1. **CNAME**: create `public/CNAME` containing exactly:
+
+   ```bash
+   levergerdesverites.fr
+   ```
+
+   > GitHub Pages will automatically preserve the custom domain across deployments.
+
+2. **Enable Pages** in the repository `Settings ▸ Pages`:
+
+   - Source: **GitHub Actions**
+
+3. **GitHub Actions** workflow: `.github/workflows/deploy.yml`
+
+   ```yaml
+   name: Deploy to GitHub Pages
+   on:
+     push:
+       branches: [main]
+     workflow_dispatch:
+
+   permissions:
+     contents: read
+     pages: write
+     id-token: write
+
+   concurrency:
+     group: "pages"
+     cancel-in-progress: true
+
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-node@v4
+           with:
+             node-version: 20
+             cache: "npm"
+         - run: npm ci
+         - run: npm run build
+         - uses: actions/upload-pages-artifact@v3
+           with:
+             path: dist
+
+     deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       environment:
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+       steps:
+         - id: deployment
+           uses: actions/deploy-pages@v4
+   ```
+
+## 🔐 Legal & privacy
+
+- **Legal notice** page (publisher, host, contact).
+- **Privacy policy** page (contact form only, no third-party cookies without consent).
+
+---
+
+## 🤝 Contributing
+
+- Style: **TypeScript**, ESLint + Prettier.
+- Commits: **Conventional Commits** (`feat:`, `fix:`, `docs:` …).
+- Branches: `feat/*`, `fix/*`, `docs/*`.
+- PRs: small, clear description, screenshot for UI changes.
+
+---
+
+## 🗺️ Roadmap (draft)
+
+- [ ] **Home** page (hero + CTA)
+- [ ] **About** page (mission, bylaws, partners)
+- [ ] **Orchard** page (species, seasons, gallery)
+- [ ] **Agenda** page (events/workdays)
+- [ ] **Join us** page (membership/volunteering/donation)
+- [ ] **Contact** page (email form)
+- [ ] **Legal** & **Privacy** pages
+- [ ] Icons, favicons, manifest
+- [ ] Accessibility tests (aXe, Lighthouse)
+- [ ] Image optimization (WebP/AVIF)
+
+---
+
+## 📄 License
+
+_To be defined_ (MIT recommended for a brochure site; confirm with the association).
+
+---
+
+## 📝 Notes
+
+- This repository is **front-end only**.
+- The site aims to be **simple, lightweight, and sustainable** (digital sobriety).
