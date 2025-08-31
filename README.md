@@ -56,7 +56,9 @@ Official page for a non-profit that runs a **participatory, community orchard**,
 
 ---
 
-## 🧭 Navigation & Planned Pages
+## 🧭 Navigation & Planned Anchors
+
+The web site will be a "One Pager" :
 
 - **Home**: hero, values, CTA “Join / Participate”
 - **About**: mission, bylaws, board, partners

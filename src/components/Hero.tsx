@@ -1,7 +1,9 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { colors } from "../theme";
+import CastleIcon from "@mui/icons-material/Castle";
 
 export default function Hero() {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -36,7 +38,19 @@ export default function Hero() {
           >
             Nous plantons, entretenons et partageons un verger collectif pour
             promouvoir l'agriculture vivrière, la biodiversité et dynamiser nos
-            territoires.
+            territoires. Le verger est situé à {""}
+            <a
+              href="https://www.ville-lapalisse.fr/"
+              target="blank"
+              style={{
+                textDecoration: "none",
+                color: theme.palette.secondary.main,
+              }}
+            >
+              Lapalisse
+              <CastleIcon sx={{ ml: 0.5, fontSize: 16 }} />
+            </a>{" "}
+            dans le beau département Bourbonnais de l'Allier (03).
           </Typography>
         </Stack>
       </Box>
