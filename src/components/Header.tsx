@@ -8,7 +8,8 @@ export default function Header() {
           Le Verger Des Vérités
         </Typography>
         <Box>
-          <Button color="inherit">Asso</Button>
+          <Button color="inherit">L'Asso</Button>
+          <Button color="inherit">Nos actions</Button>
         </Box>
       </Toolbar>
     </AppBar>
