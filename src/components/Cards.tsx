@@ -1,36 +1,47 @@
 import { Card, CardContent, Typography, CardMedia, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import SchoolIcon from "@mui/icons-material/School";
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import EmojiNatureIcon from "@mui/icons-material/EmojiNature";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import type { OverridableComponent } from "@mui/material/OverridableComponent";
+import type { SvgIconTypeMap } from "@mui/material";
 
 type Item = {
   title: string;
   description: string;
   image: string;
+  icon?: OverridableComponent<SvgIconTypeMap>;
 };
 
 const items: Item[] = [
+  {
+    title: "Partage & Pédagogie",
+    description:
+      "Journées portes ouvertes, chantiers participatifs, interventions scolaires",
+    image: "/images/enfant-ramasse-cerises.jpg",
+    icon: SchoolIcon,
+  },
   {
     title: "Plantations & Taille",
     description:
       "Ateliers saisonniers pour planter, tailler, et entretenir les arbres fruitiers",
     image: "/images/six-pers-plantent-arbres.jpg",
+    icon: LocalFloristIcon,
   },
   {
     title: "Récolte",
     description:
       "Nous récoltons ce que donne le verger, et partageons ces moments et denrées",
     image: "/images/cerises-dans-panier.jpg",
+    icon: ShoppingBasketIcon,
   },
   {
     title: "Biodiversité",
     description:
-      "Haies champêtres, paillage vivant, tonte raisonnée, zéro pesticide de synthèse, promotion de pratiques biologique",
+      "Haies champêtres, paillage vivant, tonte raisonnée, zéro pesticide de synthèse, promotion de pratiques biologiques",
     image: "/images/jeune-cerisier.jpg",
-  },
-  {
-    title: "Partage & Pédagogie",
-    description:
-      "Journées portes ouvertes, chantiers participatifs, interventions scolaires",
-    image: "/images/enfant-ramasse-cerises.jpg",
+    icon: EmojiNatureIcon,
   },
 ];
 
@@ -61,6 +72,7 @@ export default function Cards() {
                   component="img"
                   src={item.image}
                   alt={item.description}
+                  sx={{ borderRadius: 2, height: "auto", objectFit: "cover" }}
                 />
                 <Box
                   sx={{
@@ -70,7 +82,11 @@ export default function Cards() {
                     mt: 2,
                   }}
                 >
-                  <Typography variant="h5">{item.title}</Typography>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    {item.icon && <item.icon />}
+                    <Typography variant="h5">{item.title}</Typography>
+                  </Box>
+
                   <Typography variant="body2">{item.description}</Typography>
                 </Box>
               </CardContent>

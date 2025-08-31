@@ -36,7 +36,8 @@ export default function Hero() {
           >
             Nous plantons, entretenons et partageons un verger collectif pour
             promouvoir l'agriculture vivrière, la biodiversité et dynamiser nos
-            territoires.
+            territoires. Nous sommes situés à Lapalisse dans le beau département
+            Bourbonnais de l'Allier (03).
           </Typography>
         </Stack>
       </Box>
