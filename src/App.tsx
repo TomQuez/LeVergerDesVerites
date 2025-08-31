@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import Cards from "./components/Cards";
 import Contact from "./components/Contact";
 import Association from "./components/Association";
+import { Mentions } from "./components/Mentions";
 import { CONTACT } from "./Constant";
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
         email={CONTACT.email}
         phoneE164={CONTACT.phoneE164}
       />
+      <Box my={4}>
+        <Divider />
+      </Box>
+      <Mentions />
       <Box my={4}>
         <Divider />
       </Box>

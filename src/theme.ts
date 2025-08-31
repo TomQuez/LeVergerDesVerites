@@ -70,6 +70,19 @@ const theme = createTheme({
         },
       },
     },
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          scrollBehavior: "smooth",
+          ["id"]: {
+            scrollMarginTop: { xs: "100px", sm: "72" },
+          },
+          ["breakpoint"]: {
+            scrollMarginTop: { xs: "100px", sm: "72" },
+          },
+        },
+      },
+    },
   },
 });
 

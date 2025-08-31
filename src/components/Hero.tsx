@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme, Tooltip } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { colors } from "../theme";
 import CastleIcon from "@mui/icons-material/Castle";
 
@@ -38,7 +38,7 @@ export default function Hero() {
           >
             Nous plantons, entretenons et partageons un verger collectif pour
             promouvoir l'agriculture vivrière, la biodiversité et dynamiser nos
-            territoires. Nous sommes situés à{" "}
+            territoires. Le verger est situé à {""}
             <a
               href="https://www.ville-lapalisse.fr/"
               target="blank"
