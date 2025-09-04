@@ -10,5 +10,5 @@ export const ASSO = {
   pres: "Stefan Contant",
   Tresorier: "Grégorie Chaux",
   CoTresorier: "Milena Pousset",
-  siege: "Marie de Lapalisse, 03120 Lapalisse",
+  siege: "Mairie de Lapalisse, 03120 Lapalisse",
 };
