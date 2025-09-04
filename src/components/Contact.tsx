@@ -30,9 +30,9 @@ export default function Contact({
   email,
   phoneE164,
 }: ContactProps) {
-  const telHref = `Tel : ${SanitizePhone(phoneE164)}`;
+  const telHref = `tel:${SanitizePhone(phoneE164)}`;
   const label = getDisplayPhone(phoneDisplay);
-  const mailHref = `eMail : ${email}?subject=${encodeURIComponent(
+  const mailHref = `mailto:${email}?subject=${encodeURIComponent(
     "Contact -- Le Verger des Vérités"
   )}`;
   return (
