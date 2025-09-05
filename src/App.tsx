@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import Cards from "./components/Cards";
 import Contact from "./components/Contact";
 import Association from "./components/Association";
+import Actus from "./components/Actus";
 import { Mentions } from "./components/Mentions";
 import { CONTACT } from "./Constant";
 
@@ -16,6 +17,10 @@ function App() {
       <Header />
 
       <Hero />
+      <Box my={4}>
+        <Divider />
+      </Box>
+      <Actus />
       <Box my={4}>
         <Divider />
       </Box>

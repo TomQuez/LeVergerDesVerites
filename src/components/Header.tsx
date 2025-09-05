@@ -28,6 +28,9 @@ const navItem = [
     label: "Contact",
     href: "#contact",
   },
+  { label: "On parle de nous", href: "#presse" },
+  { label: "Actus", href: "#actus" },
+  { label: "Mentions légales", href: "#mentions" },
 ];
 
 export default function Header() {
