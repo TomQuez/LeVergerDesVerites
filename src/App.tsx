@@ -7,6 +7,7 @@ import Cards from "./components/Cards";
 import Contact from "./components/Contact";
 import Association from "./components/Association";
 import Actus from "./components/Actus";
+import Presse from "./components/Presse";
 import { Mentions } from "./components/Mentions";
 import { CONTACT } from "./Constant";
 
@@ -37,6 +38,10 @@ function App() {
         email={CONTACT.email}
         phoneE164={CONTACT.phoneE164}
       />
+      <Box my={4}>
+        <Divider />
+      </Box>
+      <Presse />
       <Box my={4}>
         <Divider />
       </Box>
