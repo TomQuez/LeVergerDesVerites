@@ -17,6 +17,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const navItem = [
   {
+    label: "Actus",
+    href: "#actus",
+  },
+  {
     label: "L'Asso",
     href: "#asso",
   },
@@ -28,9 +32,15 @@ const navItem = [
     label: "Contact",
     href: "#contact",
   },
-  { label: "On parle de nous", href: "#presse" },
-  { label: "Actus", href: "#actus" },
-  { label: "Mentions légales", href: "#mentions" },
+  {
+    label: "On parle de nous",
+    href: "#presse",
+  },
+
+  {
+    label: "Mentions légales",
+    href: "#mentions",
+  },
 ];
 
 export default function Header() {
