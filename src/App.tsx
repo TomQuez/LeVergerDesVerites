@@ -10,6 +10,7 @@ import Actus from "./components/Actus";
 import Presse from "./components/Presse";
 import Mentions from "./components/Mentions";
 import { CONTACT } from "./Constant";
+import InaugurationDialog from "./components/InaugurationDialog";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Mentions />
       </Box>
       <Footer />
+      <InaugurationDialog />
     </ThemeProvider>
   );
 }
