@@ -1,5 +1,8 @@
-import { Stack, Box, Typography, Button, Paper, SvgIcon } from "@mui/material";
+import { Stack, Box, Typography, Button, Paper } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 import { colors } from "../theme";
+import { useFadeIn } from "../hooks/useFadeIn";
 
 type ContactProps = {
   email: string;
@@ -7,36 +10,24 @@ type ContactProps = {
   phoneE164: string;
 };
 
-const PhoneIcon = (props: React.ComponentProps<typeof SvgIcon>) => (
-  <SvgIcon {...props} viewBox="0 0 24 24">
-    <path d="M6.62 10.79a15.46 15.46 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.61a1 1 0 01-1 1A17.79 17.79 0 012 6a1 1 0 011-1h3.61a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.24 1.02l-2.32 2.21z" />
-  </SvgIcon>
-);
-const MailIcon = (props: React.ComponentProps<typeof SvgIcon>) => (
-  <SvgIcon {...props} viewBox="0 0 24 24">
-    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-  </SvgIcon>
-);
-
-function SanitizePhone(phone: string) {
-  const cleaned = phone.replace(/[^\d+]/g, "");
-  return cleaned.startsWith("+") ? cleaned : cleaned;
+function sanitizePhone(phone: string) {
+  return phone.replace(/[^\d+]/g, "");
 }
-const getDisplayPhone = (display?: string, e164?: string) =>
-  display || e164 || "";
 
 export default function Contact({
   phoneDisplay,
   email,
   phoneE164,
 }: ContactProps) {
-  const telHref = `tel:${SanitizePhone(phoneE164)}`;
-  const label = getDisplayPhone(phoneDisplay);
+  const { ref, isVisible } = useFadeIn();
+  const telHref = `tel:${sanitizePhone(phoneE164)}`;
   const mailHref = `mailto:${email}?subject=${encodeURIComponent(
-    "Contact -- Le Verger des Vérités"
+    "Contact -- Le Verger des Vérités",
   )}`;
   return (
     <Box
+      ref={ref}
+      className={`fade-in-section ${isVisible ? "is-visible" : ""}`}
       component="section"
       id="contact"
       sx={{
@@ -52,7 +43,8 @@ export default function Contact({
         }}
       >
         <Typography
-          variant="h3"
+          variant="h2"
+          component="h2"
           sx={{ textAlign: "center", mb: { xs: 3, md: 4 } }}
         >
           Contactez-nous
@@ -75,12 +67,12 @@ export default function Contact({
             }}
           >
             Une question, une envie de participer, proposer un atelier ou un
-            coup de main au verger ? Nous serions ravis d’échanger avec vous.
+            coup de main au verger ? Nous serions ravis d'échanger avec vous.
           </Typography>
           <Stack
             spacing={2}
             direction={{ xs: "column", sm: "row" }}
-            sx={{ alignItems: { sm: "center" }, zIndex: 200 }}
+            sx={{ alignItems: { sm: "center" } }}
           >
             <Button
               component="a"
@@ -92,16 +84,16 @@ export default function Contact({
                 flex: 1,
                 py: 1.5,
               }}
-              aria-label={`Appeler le : ${label}`}
+              aria-label={`Appeler le : ${phoneDisplay}`}
             >
-              Appeler&nbsp;: {label}
+              Appeler&nbsp;: {phoneDisplay}
             </Button>
             <Button
               component="a"
               href={mailHref}
               variant="contained"
               size="large"
-              startIcon={<MailIcon />}
+              startIcon={<EmailIcon />}
               sx={{
                 flex: 1,
                 py: 1.5,
