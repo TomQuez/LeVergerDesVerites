@@ -1,171 +1,165 @@
-# Le Verger des Vérités — Website (front-end)
+# Le Verger des Verites
 
-Official page for a non-profit that runs a **participatory, community orchard**, and advocates for **kitchen gardening**, **biodiversity**, and **organic** practices.
+Official website for **Le Verger des Verites**, a French non-profit association running a participatory community orchard in Lapalisse (Allier, 03), advocating for kitchen gardening, biodiversity, and organic practices.
 
-- **Repository**: _to be created_
-- **Domain**: `levergerdesverites.fr` (custom domain via GitHub Pages)
-- **Audience**: general public, **mobile-first** (primarily viewed on smartphones)
+**Live site** : [levergerdesverites.fr](https://levergerdesverites.fr)
 
 ---
 
-## ✨ Goals
+## Tech Stack
 
-- Introduce the association, its values, and activities.
-- Showcase the orchard (plots, species, seasons, community workdays).
-- Share updates & events (news, agenda), recruit volunteers/members, enable donations.
-- Keep it lightweight, fast, and **calm/zen**.
-
-## 🧰 Tech Stack
-
-- **Vite.js** + **React** + **TypeScript**
-- **Material UI (MUI)** as the design system
-- Deployment through **GitHub Pages** (with a **custom domain**)
+| Layer | Technology |
+|-------|------------|
+| Framework | [React 19](https://react.dev/) + [TypeScript 5.8](https://www.typescriptlang.org/) |
+| Build | [Vite 7](https://vite.dev/) |
+| UI | [MUI 7](https://mui.com/) (Material UI) + Emotion |
+| Icons | [@mui/icons-material](https://mui.com/material-ui/material-icons/) |
+| Linting | ESLint 9 + typescript-eslint |
+| CI/CD | GitHub Actions |
+| Hosting | GitHub Pages (custom domain) |
 
 ---
 
-## ✅ Prerequisites
+## Getting Started
+
+### Prerequisites
 
 - **Node.js 20+** (LTS) and **npm 10+**
-- GitHub account and an empty repository (public or private)
+
+### Install & Run
+
+```bash
+npm install       # install dependencies
+npm run dev       # start local dev server (http://localhost:5173)
+```
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server with HMR |
+| `npm run build` | Type-check (`tsc -b`) then production build |
+| `npm run lint` | Run ESLint on the whole project |
+| `npm run preview` | Preview the production build locally |
 
 ---
 
-## 🎨 Theme & Design System (MUI)
+## Project Structure
 
-**Mood**: calm, zen, serene.
+```
+src/
+  App.tsx                  # Root component — assembles all sections
+  main.tsx                 # React entry point
+  theme.ts                 # MUI theme (colors, typography, component overrides)
+  Constant.ts              # Association contact info & metadata
+  index.css                # Global styles (fade-in animations, smooth scroll)
+  components/
+    Header.tsx             # Sticky nav bar with responsive drawer
+    Hero.tsx               # Full-width hero banner with CTA
+    Actus.tsx              # News / events section
+    Cards.tsx              # Action cards grid (Nos actions)
+    Association.tsx        # Mission statement & board members
+    Contact.tsx            # Phone & email call-to-action buttons
+    Presse.tsx             # Press coverage / media mentions
+    Mentions.tsx           # Legal notices (mentions legales)
+    Footer.tsx             # Footer with links & copyright
+  data/
+    cardItems.ts           # Action cards content (4 items)
+    navItems.ts            # Navigation menu entries (6 anchors)
+    newsItems.tsx          # News items content
+    pressItems.ts          # Press mentions with external links
+  hooks/
+    useFadeIn.ts           # Intersection Observer hook for scroll animations
+public/
+  images/                  # Optimized WebP images
+  images/presse/           # Press outlet logos (PNG)
+  favicon.svg              # SVG favicon
+  robots.txt               # Crawler directives
+  sitemap.xml              # Sitemap (single-page)
+  404.html                 # SPA fallback for GitHub Pages
+```
 
-**Palette** :
+### Page Layout (top to bottom)
 
-- **Papyrus/Beige** (background): `#FAF4E6` / `#FFF8E7`
-- **Oak brown** (accents): `#8B5E3C`
-- **Pastel/Light green** (primary): `#86C69C` or `#A8D5BA`
-- **Text**: `#3E372B` (primary), `#6B5E4A` (secondary)
+Header > Hero > Actus > Cards > Association > Contact > Presse > Mentions > Footer
 
-## 📱 Responsiveness & Performance (mobile-first)
-
-- **Mobile-first** layout (responsive MUI components: `Grid`, `Stack`, `Box`, `useMediaQuery`).
-- **Compressed images** + `loading="lazy"` on `<img/>`.
-- Avoid heavy carousels; prefer simple, well-spaced sections.
-- Measure LCP/CLS with Lighthouse.
-
-## 🔎 Basic SEO
-
-- Proper `title`, `meta name="description"`, OpenGraph/Twitter in `index.html`.
-- Clean URLs, sitemap (optional: `vite-plugin-sitemap`).
-- `lang="fr"` in `index.html` (the website is in French, even if this README is in English).
-
----
-
-## 🧭 Navigation & Planned Anchors
-
-The web site will be a "One Pager" :
-
-- **Home**: hero, values, CTA “Join / Participate”
-- **About**: mission, bylaws, board, partners
-- **Orchard**: species, seasons, best practices, gallery
-- **Agenda**: workdays, workshops, events
-- **Join us**: membership, volunteering, donations
-- **Contact**: form (email), social links
-- **Legal notice** & **Privacy**
-
----
-
-## 🚢 Deploying to GitHub Pages (with custom domain)
-
-1. **CNAME**: create `public/CNAME` containing exactly:
-
-   ```bash
-   levergerdesverites.fr
-   ```
-
-   > GitHub Pages will automatically preserve the custom domain across deployments.
-
-2. **Enable Pages** in the repository `Settings ▸ Pages`:
-
-   - Source: **GitHub Actions**
-
-3. **GitHub Actions** workflow: `.github/workflows/deploy.yml`
-
-   ```yaml
-   name: Deploy to GitHub Pages
-   on:
-     push:
-       branches: [main]
-     workflow_dispatch:
-
-   permissions:
-     contents: read
-     pages: write
-     id-token: write
-
-   concurrency:
-     group: "pages"
-     cancel-in-progress: true
-
-   jobs:
-     build:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v4
-         - uses: actions/setup-node@v4
-           with:
-             node-version: 20
-             cache: "npm"
-         - run: npm ci
-         - run: npm run build
-         - uses: actions/upload-pages-artifact@v3
-           with:
-             path: dist
-
-     deploy:
-       needs: build
-       runs-on: ubuntu-latest
-       environment:
-         name: github-pages
-         url: ${{ steps.deployment.outputs.page_url }}
-       steps:
-         - id: deployment
-           uses: actions/deploy-pages@v4
-   ```
-
-## 🔐 Legal & privacy
-
-- **Legal notice** page (publisher, host, contact).
-- **Privacy policy** page (contact form only, no third-party cookies without consent).
+All sections are anchor-linked from the navigation bar (`#actus`, `#actions`, `#asso`, `#contact`, `#presse`, `#mentions`).
 
 ---
 
-## 🤝 Contributing
+## Design System
 
-- Style: **TypeScript**, ESLint + Prettier.
-- Commits: **Conventional Commits** (`feat:`, `fix:`, `docs:` …).
-- Branches: `feat/*`, `fix/*`, `docs/*`.
-- PRs: small, clear description, screenshot for UI changes.
+**Mood** : calm, zen, serene — digital sobriety.
+
+### Color Palette
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `beige` | `#F3EBDD` | Page background |
+| `beigePaper` | `#FBF7EF` | Card / paper surfaces |
+| `oak` | `#8B5E34` | Secondary accent (brown) |
+| `oakDark` | `#5E3E22` | Footer, dark accents |
+| `green` | `#A8D5BA` | Primary color |
+| `greenDark` | `#6FB38E` | Primary dark variant |
+| `text` | `#2F2A24` | Body text |
+
+### Typography
+
+- **Headings** : Merriweather (serif, 400/700)
+- **Body / UI** : Inter (sans-serif, 400/600)
+- Responsive font sizes via MUI breakpoints
+
+### Component Overrides
+
+- Border radius: 16px (default), 20px (cards), 999px (buttons / pill shape)
+- Buttons: no text-transform, no elevation
+- Smooth scroll with offset for sticky header
 
 ---
 
-## 🗺️ Roadmap (draft)
+## Accessibility
 
-- [ ] **Home** page (hero + CTA)
-- [ ] **About** page (mission, bylaws, partners)
-- [ ] **Orchard** page (species, seasons, gallery)
-- [ ] **Agenda** page (events/workdays)
-- [ ] **Join us** page (membership/volunteering/donation)
-- [ ] **Contact** page (email form)
-- [ ] **Legal** & **Privacy** pages
-- [ ] Icons, favicons, manifest
-- [ ] Accessibility tests (aXe, Lighthouse)
-- [ ] Image optimization (WebP/AVIF)
+- Skip-to-content link (visible on focus)
+- Semantic HTML (`<main>`, `<nav>`, `<section>`, `<footer>`, `<article>`)
+- `aria-label` on interactive elements (nav, buttons)
+- Descriptive `alt` text on all images
+- `prefers-reduced-motion` respected (disables fade-in animations)
+- Keyboard-navigable links and buttons
 
 ---
 
-## 📄 License
+## SEO
 
-_To be defined_ (MIT recommended for a brochure site; confirm with the association).
+- `lang="fr"` on `<html>`
+- `<meta name="description">`, `<link rel="canonical">`
+- Open Graph & Twitter Card meta tags
+- `robots.txt` + `sitemap.xml`
+- `<meta name="theme-color">` for mobile browsers
 
 ---
 
-## 📝 Notes
+## CI/CD & Deployment
 
-- This repository is **front-end only**.
-- The site aims to be **simple, lightweight, and sustainable** (digital sobriety).
+Two GitHub Actions workflows under `.github/workflows/`:
+
+| Workflow | Trigger | Steps |
+|----------|---------|-------|
+| **CI** (`ci.yml`) | PR & push to `main` | Install > Type-check > Lint > Test > Build |
+| **Deploy** (`pages.yml`) | Push to `main` | Install > Build > Upload artifact > Deploy to GitHub Pages |
+
+The site is served at [levergerdesverites.fr](https://levergerdesverites.fr) via GitHub Pages with a custom domain.
+
+---
+
+## Contributing
+
+- **Commits** : [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, etc.)
+- **Branches** : `feat/*`, `fix/*`, `docs/*`
+- **PRs** : small scope, clear description, screenshot for UI changes
+- **Content** : update data files in `src/data/` — no need to touch components
+
+---
+
+## License
+
+To be defined (MIT recommended; pending confirmation with the association).

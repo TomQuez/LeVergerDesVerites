@@ -14,9 +14,27 @@ const theme = createTheme({
   typography: {
     fontFamily:
       "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, sans-serif",
-    h1: { fontFamily: "Merriweather, serif", fontWeight: 700 },
-    h2: { fontFamily: "Merriweather, serif", fontWeight: 700 },
-    h3: { fontFamily: "Merriweather, serif", fontWeight: 700 },
+    h1: {
+      fontFamily: "Merriweather, serif",
+      fontWeight: 700,
+      fontSize: "2rem",
+      "@media (min-width:600px)": { fontSize: "2.75rem" },
+      "@media (min-width:900px)": { fontSize: "3.25rem" },
+    },
+    h2: {
+      fontFamily: "Merriweather, serif",
+      fontWeight: 700,
+      fontSize: "1.625rem",
+      "@media (min-width:600px)": { fontSize: "2rem" },
+      "@media (min-width:900px)": { fontSize: "2.5rem" },
+    },
+    h3: {
+      fontFamily: "Merriweather, serif",
+      fontWeight: 700,
+      fontSize: "1.375rem",
+      "@media (min-width:600px)": { fontSize: "1.625rem" },
+      "@media (min-width:900px)": { fontSize: "2rem" },
+    },
     button: {
       textTransform: "none",
       fontWeight: 600,
@@ -74,11 +92,11 @@ const theme = createTheme({
       styleOverrides: {
         html: {
           scrollBehavior: "smooth",
-          ["id"]: {
-            scrollMarginTop: { xs: "100px", sm: "72" },
-          },
-          ["breakpoint"]: {
-            scrollMarginTop: { xs: "100px", sm: "72" },
+        },
+        "[id]": {
+          scrollMarginTop: "100px",
+          "@media (min-width: 600px)": {
+            scrollMarginTop: "72px",
           },
         },
       },
