@@ -14,34 +14,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-const navItem = [
-  {
-    label: "Actus",
-    href: "#actus",
-  },
-  {
-    label: "L'Asso",
-    href: "#asso",
-  },
-  {
-    label: "Nos actions",
-    href: "#actions",
-  },
-  {
-    label: "Contact",
-    href: "#contact",
-  },
-  {
-    label: "On parle de nous",
-    href: "#presse",
-  },
-
-  {
-    label: "Mentions légales",
-    href: "#mentions",
-  },
-];
+import { navItems } from "../data/navItems";
 
 export default function Header() {
   const theme = useTheme();
@@ -60,64 +33,94 @@ export default function Header() {
       setOpen(next);
     };
   return (
-    <AppBar elevation={0} position="sticky">
-      <Toolbar
-        sx={{ maxWidth: 1200, mx: "auto", width: "100%", height: "30px" }}
+    <>
+      <AppBar
+        elevation={0}
+        position="fixed"
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 9999,
+        }}
       >
-        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
-          Le Verger Des Vérités
-        </Typography>
-        {isDesktop && (
-          <Box>
-            {navItem.map((item) => (
-              <Button key={item.label} color="inherit" href={item.href}>
-                {item.label}
-              </Button>
-            ))}
+        <Toolbar
+          sx={{ maxWidth: 1200, mx: "auto", width: "100%", minHeight: { xs: 56, sm: 64 } }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexGrow: 1,
+            }}
+          >
+            <Box
+              component="img"
+              src="/favicon.svg"
+              alt=""
+              sx={{ width: 32, height: 32 }}
+            />
+            <Typography variant="h6" sx={{ fontWeight: 700 }}>
+              Le Verger Des Vérités
+            </Typography>
           </Box>
-        )}
-        {!isDesktop && (
-          <>
-            <IconButton
-              color="inherit"
-              edge="end"
-              aria-label="Ouvrir le menu"
-              onClick={toggleDrawer(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Drawer
-              anchor="right"
-              open={open}
-              onClose={toggleDrawer(false)}
-              slotProps={{
-                paper: {
-                  sx: { width: "80%", maxWidth: 320 },
-                },
-              }}
-            >
-              <Box
-                sx={{ width: 250 }}
-                role="presentation"
-                onClick={toggleDrawer(false)}
-                onKeyDown={toggleDrawer(false)}
+          {isDesktop && (
+            <Box component="nav" aria-label="Navigation principale">
+              {navItems.map((item) => (
+                <Button key={item.label} color="inherit" href={item.href}>
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
+          )}
+          {!isDesktop && (
+            <>
+              <IconButton
+                color="inherit"
+                edge="end"
+                aria-label="Ouvrir le menu"
+                onClick={toggleDrawer(true)}
               >
-                <List>
-                  {navItem.map((item) => (
-                    <ListItemButton
-                      key={item.label}
-                      component="a"
-                      href={item.href}
-                    >
-                      <ListItemText primary={item.label} />
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Box>
-            </Drawer>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+                <MenuIcon />
+              </IconButton>
+              <Drawer
+                anchor="right"
+                open={open}
+                onClose={toggleDrawer(false)}
+                slotProps={{
+                  paper: {
+                    sx: { width: "80%", maxWidth: 320 },
+                  },
+                }}
+              >
+                <Box
+                  component="nav"
+                  aria-label="Navigation principale"
+                  sx={{ width: 250 }}
+                  role="presentation"
+                  onClick={toggleDrawer(false)}
+                  onKeyDown={toggleDrawer(false)}
+                >
+                  <List>
+                    {navItems.map((item) => (
+                      <ListItemButton
+                        key={item.label}
+                        component="a"
+                        href={item.href}
+                      >
+                        <ListItemText primary={item.label} />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Box>
+              </Drawer>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </>
   );
 }
