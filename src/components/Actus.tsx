@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Link,
 } from "@mui/material";
 import { useFadeIn } from "../hooks/useFadeIn";
 import { newsItems } from "../data/newsItems";
@@ -74,6 +75,24 @@ export default function Actus() {
                       </Typography>
                     </Box>
                     <Typography variant="body2">{item.description}</Typography>
+                    {item.links && (
+                      <Box
+                        sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+                      >
+                        {item.links.map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="body2"
+                            sx={{ fontWeight: 600 }}
+                          >
+                            {link.label}
+                          </Link>
+                        ))}
+                      </Box>
+                    )}
                   </Box>
                 </CardContent>
               </Card>
